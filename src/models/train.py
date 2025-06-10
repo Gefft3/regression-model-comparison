@@ -38,7 +38,13 @@ def compare_models(X, y, cv=10):
                 "rmse_std": rmse_scores.std(),
             }
         )
-    return pd.DataFrame(results).sort_values("rmse_mean")
+    df_results = pd.DataFrame(results).sort_values("rmse_mean")
+    df_results.to_csv(
+        os.path.join(MODEL_DIR, "model_comparison.csv"), index=False
+    )
+    print("Model comparison results:")
+    print(df_results)
+    return df_results
 
 
 def train_best(X, y, best_name, save=True):
