@@ -4,6 +4,16 @@ import os
 
 
 def split(out_path: str, raw_path: str, test_size=0.2, random_state=42):
+    """
+    Split the California housing dataset into training and testing sets and save them as CSV files.
+    Parameters:
+        out_path (str): The directory where the split datasets will be saved.
+        raw_path (str): The directory where the raw dataset is located.
+        test_size (float): Proportion of the dataset to include in the test split.
+        random_state (int): Random seed for reproducibility.
+    Returns:
+        None: The function saves the split datasets as CSV files in the specified output path.
+    """
     df = pd.read_csv(f"{raw_path}/california_housing.csv")
     X = df.drop("MedHouseVal", axis=1)
     y = df["MedHouseVal"]

@@ -5,6 +5,12 @@ from catboost import CatBoostRegressor
 
 
 def get_models():
+    """
+    Get a dictionary of regression models for training.
+    Returns:
+        dict: A dictionary where keys are model names and values are model instances.
+    """
+
     return {
         "LinearRegression": LinearRegression(),
         "RandomForest": RandomForestRegressor(n_estimators=100, random_state=42),

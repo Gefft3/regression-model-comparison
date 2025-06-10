@@ -4,7 +4,7 @@ This repository presents a complete and well-documented machine learning pipelin
 
 ## Objective
 
-Predict the median house value based on socioeconomic and geographic features using the following models:
+Predict the median house value based on socioeconomic and geographic features using:
 
 * Linear Regression
 * Random Forest Regressor
@@ -13,39 +13,98 @@ Predict the median house value based on socioeconomic and geographic features us
 
 ## Pipeline Overview
 
-1. **Problem Definition**
+1. **Problem Definition**  
    Regression task: predict `MedHouseVal`.
 
-2. **Data Collection**
+2. **Data Collection**  
    Dataset loaded via `sklearn.datasets.fetch_california_housing`.
 
-3. **Exploratory Data Analysis (EDA)**
+3. **Exploratory Data Analysis (EDA)**  
+   - Descriptive statistics  
+   - Histograms  
+   - Correlation matrix
 
-   * Descriptive statistics
-   * Histograms
-   * Correlation matrix
+4. **Preprocessing**  
+   - Missing value imputation (median)  
+   - Feature scaling (standardization)
 
-4. **Preprocessing**
+5. **Modeling**  
+   - Pipelines integrating preprocessing and models  
+   - 5-fold cross-validation  
+   - Metric: RMSE
 
-   * Missing value imputation (median)
-   * Feature scaling (standardization)
+6. **Model Evaluation**  
+   - Select best by CV RMSE  
+   - Final evaluation on hold-out test set
 
-5. **Modeling**
+## Project Structure
 
-   * Models integrated in `Pipeline`
-   * Evaluation via 5-fold cross-validation
-   * Metric: Root Mean Squared Error (RMSE)
+```
 
-6. **Model Evaluation**
+project/
+├── data/raw
+├── data/processed
+├── models
+├── src
+├── notebooks
+├── tests
+├── requirements.txt
+└── README.md
 
-   * Best model selected by CV RMSE
-   * Final evaluation on hold-out test set
+````
+
+## Configuration
+
+Optional environment variables (with defaults):
+
+- `RAW_DATA_PATH`: `data/raw`
+- `PROCESSED_DATA_PATH`: `data/processed`
+- `MODEL_DIR`: `models`
+- `MODEL_FILENAME`: `best_pipeline.joblib`
 
 ## How to Run
 
-1. Clone the repository:
+1. Clone the repo:
 
    ```bash
-   git clone https://github.com/your-username/regression-model-comparison.git
+   git clone https://github.com/Gefft3/regression-model-comparison.git
    cd regression-model-comparison
    ```
+
+2. Install dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Download data:
+
+   ```bash
+   python -m src.data.download
+   ```
+
+4. Preprocess data:
+
+   ```bash
+   python -m src.data.preprocess
+   ```
+
+5. Train models:
+
+   ```bash
+   python -m src.models.train
+   ```
+
+6. Run inference:
+
+   ```bash
+   python -m src.inference.inference "<json_features>"
+   ```
+
+## Testing
+
+Run unit tests:
+
+```bash
+pytest
+```

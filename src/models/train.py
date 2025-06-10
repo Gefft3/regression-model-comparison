@@ -2,11 +2,10 @@ import os
 import pandas as pd
 import numpy as np
 from sklearn.pipeline import Pipeline
-from sklearn.model_selection import cross_val_score, cross_val_predict
+from sklearn.model_selection import cross_val_score
 from joblib import dump
 from .registry import get_models
 from src.features.pipeline import numeric_pipeline
-from src.utils import rmse
 from src.config import PROCESSED_DATA_PATH, MODEL_DIR, MODEL_PATH
 
 os.makedirs(MODEL_DIR, exist_ok=True)
@@ -27,7 +26,7 @@ def compare_models(X, y, cv=10):
     results = []
     for name, model in get_models().items():
         pipe = Pipeline([("preproc", numeric_pipeline()), ("model", model)])
-        # Use cross_val_score to calculate negative MSE scores
+        # Use cross_val_score to calculate negative MSE scores 
         neg_mse_scores = cross_val_score(
             pipe, X, y, scoring="neg_mean_squared_error", cv=cv
         )
