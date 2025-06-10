@@ -26,7 +26,7 @@ def compare_models(X, y, cv=10):
     results = []
     for name, model in get_models().items():
         pipe = Pipeline([("preproc", numeric_pipeline()), ("model", model)])
-        # Use cross_val_score to calculate negative MSE scores 
+        # Use cross_val_score to calculate negative MSE scores
         neg_mse_scores = cross_val_score(
             pipe, X, y, scoring="neg_mean_squared_error", cv=cv
         )
@@ -41,14 +41,15 @@ def compare_models(X, y, cv=10):
     return pd.DataFrame(results).sort_values("rmse_mean")
 
 
-def train_best(X, y, best_name):
+def train_best(X, y, best_name, save=True):
     """
-    Train the best model and save the pipeline.
+    Train the best model and optionally save the pipeline.
 
     Parameters:
     - X: Features dataset.
     - y: Target dataset.
     - best_name: Name of the best model to train.
+    - save: Whether to save the trained pipeline (default: True).
 
     Returns:
     - Trained pipeline.
@@ -56,7 +57,8 @@ def train_best(X, y, best_name):
     model = get_models()[best_name]
     pipe = Pipeline([("preproc", numeric_pipeline()), ("model", model)])
     pipe.fit(X, y)
-    dump(pipe, MODEL_PATH)
+    if save:
+        dump(pipe, MODEL_PATH)
     return pipe
 
 
