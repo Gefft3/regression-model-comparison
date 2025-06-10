@@ -42,16 +42,22 @@ Predict the median house value based on socioeconomic and geographic features us
 ```
 
 project/
-├── data/raw
-├── data/processed
+├── data
+├── data
+      ├── processed
+      └── raw
 ├── models
 ├── src
+      ├── data
+      ├── features
+      ├── inference
+      └── models
 ├── notebooks
 ├── tests
 ├── requirements.txt
 └── README.md
 
-````
+```
 
 ## Configuration
 
