@@ -5,3 +5,4 @@ xgboost
 catboost
 joblib
 matplotlib
+pytest
