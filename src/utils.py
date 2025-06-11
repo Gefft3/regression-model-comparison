@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from src.config import MODEL_DIR, PLOTS_DIR
+from src.config import RAW_DATA_PATH, MODEL_DIR, PLOTS_DIR
 import numpy as np
 from sklearn.metrics import mean_squared_error
 import os
@@ -29,5 +29,39 @@ def plot_comparison():
     plt.grid(axis="x")
     plt.tight_layout()
     os.makedirs(PLOTS_DIR, exist_ok=True)
-    plot_path = f"{PLOTS_DIR}/model_comparison.png" 
-    plt.savefig(plot_path)  
+    plot_path = f"{PLOTS_DIR}/model_comparison.png"
+    plt.savefig(plot_path)
+
+
+def plot_eda():
+    df = pd.read_csv(f"{RAW_DATA_PATH}/california_housing.csv")
+    
+    os.makedirs(PLOTS_DIR, exist_ok=True)
+
+    X = df.drop(columns=["MedHouseVal"])
+
+    corr = df.corr()
+    plt.figure(figsize=(10, 8))
+    plt.imshow(corr, cmap="coolwarm", interpolation="none")
+    plt.colorbar()
+    plt.xticks(range(len(corr.columns)), corr.columns, rotation=45)
+    plt.yticks(range(len(corr.columns)), corr.columns)
+    plt.title("Correlation Matrix")
+    plt.tight_layout()
+    plt.savefig(f"{PLOTS_DIR}/correlation_matrix.png")
+    plt.close("all")
+
+    for col in X.columns:
+        plt.figure(figsize=(10, 6))
+        plt.hist(X[col], bins=30)
+        plt.title(f"Distribution of {col}")
+        plt.xlabel(col)
+        plt.ylabel("Frequency")
+        plt.grid(True)
+        plt.savefig(f"{PLOTS_DIR}/frequency_{col}.png")
+        plt.close("all")
+
+if __name__ == "__main__":
+    plot_eda()
+    plot_comparison()
+    print("Plots generated successfully.")
