@@ -11,6 +11,10 @@ Predict the median house value based on socioeconomic and geographic features us
 * XGBoost Regressor
 * CatBoost Regressor
 
+## Motivation
+
+Choosing the right regression model is critical for achieving accurate predictions. Each model has unique strengths and weaknesses depending on the dataset's characteristics, such as feature interactions, non-linear relationships, and noise. By testing multiple models, we can identify the one that best balances bias and variance for this specific problem, ensuring robust and reliable predictions.
+
 ## Pipeline Overview
 
 1. **Problem Definition**  
@@ -40,76 +44,83 @@ Predict the median house value based on socioeconomic and geographic features us
 ## Project Structure
 
 ```
-
-project/
+regression-model-comparison-pipeline/
 ├── data
-├── data
-      ├── processed
-      └── raw
+│   ├── processed
+│   └── raw
 ├── models
 ├── src
-      ├── data
-      ├── features
-      ├── inference
-      └── models
+│   ├── data
+│   ├── features
+│   ├── inference
+│   └── models
 ├── notebooks
 ├── tests
+├── api
+│   └── app.py
+├── Dockerfile
 ├── requirements.txt
 └── README.md
-
 ```
 
 ## Configuration
 
 Optional environment variables (with defaults):
 
+- `BASE_DIR`: `root`
 - `RAW_DATA_PATH`: `data/raw`
 - `PROCESSED_DATA_PATH`: `data/processed`
 - `MODEL_DIR`: `models`
 - `MODEL_FILENAME`: `best_pipeline.joblib`
+- `PLOTS_DIR`: `plots`
 
 ## How to Run
 
-1. Clone the repo:
+### Using Docker Compose
+
+1. Build the Docker image (first time):
 
    ```bash
-   git clone https://github.com/Gefft3/regression-model-comparison.git
-   cd regression-model-comparison
+   docker-compose up --build
    ```
 
-2. Install dependencies:
+2. Run the container (not first time):
 
    ```bash
-   pip install -r requirements.txt
+   docker-compose up
    ```
 
-3. Download data:
+3. Enter the container to run the commands:
+   ```bash
+   docker exec -it regression-model-comparison-app-1 sh
+   ```
+
+4. Download and preprocess data (inside the container):
 
    ```bash
-   python -m src.data.download
+   python3 -m src.data.download
+   python3 -m src.data.preprocess
    ```
 
-4. Preprocess data:
+5. Train models (inside the container):
 
    ```bash
-   python -m src.data.preprocess
+   python3 -m src.models.train
    ```
 
-5. Train models:
+6. Run inference (inside the container):
 
    ```bash
-   python -m src.models.train
+   python3 -m src.inference.inference "<json_features>"
    ```
 
-6. Run inference:
+7. Access the API for inference:
 
-   ```bash
-   python -m src.inference.inference "<json_features>"
-   ```
+   Send a POST request to `http://{API_HOST}:{API_PORT}/predict` with the input features in JSON format.
 
 ## Testing
 
-Run unit tests:
+Run unit tests (inside the container):
 
 ```bash
 pytest

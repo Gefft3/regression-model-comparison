@@ -12,6 +12,6 @@ services:
       - .env
     command: [
       "sh", "-c",
-      "uvicorn src.api.main:app --host $API_HOST --port $API_PORT --reload"
+      "uvicorn src.api.app:app --host $API_HOST --port $API_PORT --reload"
     ]
     tty: true

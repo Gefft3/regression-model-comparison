@@ -6,3 +6,4 @@ PROCESSED_DATA_PATH = os.getenv('PROCESSED_DATA_PATH', os.path.join(BASE_DIR, 'd
 MODEL_DIR = os.getenv('MODEL_DIR', os.path.join(BASE_DIR, 'models'))
 MODEL_FILENAME = os.getenv('MODEL_FILENAME', 'best_pipeline.joblib')
 MODEL_PATH = os.path.join(MODEL_DIR, MODEL_FILENAME)
+PLOTS_DIR = os.getenv('PLOTS_DIR', os.path.join(BASE_DIR, 'plots'))
