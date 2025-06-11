@@ -1,0 +1,3 @@
+curl -X POST http://0.0.0.0:8000/predict \
+     -H "Content-Type: application/json" \
+     -d '{"data": {"MedInc": 8.3, "HouseAge": 41.0, "AveRooms": 6.0, "AveBedrms": 1.0, "Population": 980.0, "AveOccup": 2.0, "Latitude": 34.0, "Longitude": -118.0}}'

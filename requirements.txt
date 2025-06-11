@@ -6,3 +6,5 @@ catboost
 joblib
 matplotlib
 pytest
+fastapi
+uvicorn
