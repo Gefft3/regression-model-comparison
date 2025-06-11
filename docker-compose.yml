@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   app:
     build:
@@ -12,6 +10,6 @@ services:
       - .env
     command: [
       "sh", "-c",
-      "uvicorn src.api.app:app --host $API_HOST --port $API_PORT --reload"
+      "uvicorn api.app:app --host $API_HOST --port $API_PORT --reload"
     ]
     tty: true
