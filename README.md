@@ -49,15 +49,15 @@ regression-model-comparison-pipeline/
 │   ├── processed
 │   └── raw
 ├── models
+├── notebooks
+├── plots
 ├── src
 │   ├── data
 │   ├── features
 │   ├── inference
 │   └── models
-├── notebooks
 ├── tests
 ├── api
-│   └── app.py
 ├── Dockerfile
 ├── requirements.txt
 └── README.md
